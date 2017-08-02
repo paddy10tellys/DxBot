@@ -1,0 +1,309 @@
+Virtual environments offer a way for managing and isolating dependencies on a per-project basis. Moreover, they also avoid
+the whole sudo pip install situation, which is a security risk as explained in https://askubuntu.com/a/802594/15003.
+The official Python documentation also encourages the use of virtual environments. The easiest way to create and use virtual
+environments for both Python 2 and Python 3 is to install virtualenv - THIS IS THE ONLY TIME YOU NEED TO USE sudo. For each
+Python project, create a virtualenv and then activate it. After activation, use pip to install Python packages as usual; 
+note that there is no need to use pip3 for Python 3. sudo is only used to install virtualenv and is not used with pip, 
+therefore avoiding the security risk. See https://askubuntu.com/questions/802544/is-sudo-pip-install-still-a-broken-practice?noredirect=1&lq=1
+
+INSTALL VIRTUALENVWRAPPER
+nb read https://virtualenvwrapper.readthedocs.io/en/latest/
+$ [sudo]pip install virtualenvwrapper
+
+ADD COMMANDS TO BASH
+$ export WORKON_HOME=$HOME/.virtualenvs
+$ export PROJECT_HOME=$HOME/Devel
+
+ACTIVATE VIRTUALENVWRAPPER
+$ source /usr/local/bin/virtualenvwrapper.sh
+
+MAKE A VIRTUALENV
+$ mkvirtualenv --python=/usr/bin/python3 project_cb
+Syntax:
+mkvirtualenv [-a project_path] [-i package] [-r requirements_file] [virtualenv options] ENVNAME
+
+>>paddy10tellys:~/workspace (master) $ mkvirtualenv --python=/usr/bin/python3 project_cb
+>>Already using interpreter /usr/bin/python3
+>>Using base prefix '/usr'
+>>New python executable in /home/ubuntu/.virtualenvs/project_cb/bin/python3
+>>Also creating executable in /home/ubuntu/.virtualenvs/project_cb/bin/python
+>>Installing setuptools, pip, wheel...done.
+>>(project_cb) paddy10tellys:~/workspace (master) $
+
+(project_cb) paddy10tellys:~/workspace (master) $ which virtualenv
+/usr/local/bin/virtualenv
+
+(project_cb) paddy10tellys:~/workspace (master) $ find /usr/ -iname "virtualenv" | grep bin
+/usr/local/bin/virtualenv
+/usr/bin/virtualenv
+
+WHERE AM I?
+(project_cb) paddy10tellys:~/workspace (master) $ pwd
+/home/ubuntu/workspace
+
+WHICH PYTHON VERSION AM I USING?
+(project_cb) paddy10tellys:~/workspace (master) $ python -V
+Python 3.4.3
+
+(project_cb) paddy10tellys:~/workspace (master) $ which python
+/home/ubuntu/.virtualenvs/project_cb/bin/python
+
+VIRTUALENVWRAPPER CHEAT SHEET
+http://virtualenvwrapper.readthedocs.io/en/latest/command_ref.html
+
+LIST ALL AVAILABLE VIRTUAL ENVIRONMENTS
+(project_cb) paddy10tellys:~/workspace (master) $ lsvirtualenv
+project_cb
+==========
+
+LIST THE PACKAGES THAT ARE INSTALLED IN THE VIRTUAL ENVIRONMENT
+(project_cb) paddy10tellys:~/workspace (master) $ lssitepackages
+__pycache__/  easy_install.py  pip/  pip-9.0.1.dist-info/  pkg_resources/  setuptools/  setuptools-36.2.6.dist-info/  wheel/  wheel-0.29.0.dist-info/
+
+API.ai STUFF
+https://github.com/api-ai/apiai-python-client
+
+(project_cb) paddy10tellys:~/workspace (master) $ pip3 install apiai
+Installing collected packages: numpy, apiai
+Successfully installed apiai-1.2.3 numpy-1.13.1
+
+https://api.ai/
+> go to console > sign in with Google > Symptom-player cogwheel icon > developer access token 1c73f1b151994186b289103d9a3e3eeb
+
+(project_cb) paddy10tellys:~/workspace (master) $ python cb3
+usage: cb3 [-h] [-a ACCESS_TOKEN] [text [text ...]]
+
+(project_cb) paddy10tellys:~/workspace (master) $ python cb3 -a 1c73f1b151994186b289103d9a3e3eeb face pain
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>face pain
+{
+  "id": "592868d3-36da-4aef-99d7-8f0448419c47",
+  "timestamp": "2017-08-01T12:51:16.916Z",
+  "lang": "en",
+  "result": {
+    "source": "agent",
+    "resolvedQuery": "face pain",
+    "action": "diagnose",
+    "actionIncomplete": false,
+    "parameters": {
+      "Blockage": "Trouble breathing through nose",
+      "Breath": "Foul smelling breath",
+      "Congestion": "Stuffy nose",
+      "Earache": "Earache",
+      "Fatigue": "Fatigue",
+      "Headache": "Headache",
+      "Pressure": "Pressure over forehead",
+      "Smell": "Loss of smell",
+      "Swelling": "Swelling around eyes",
+      "Taste": "Loss of taste"
+    },
+    "contexts": [],
+    "metadata": {
+      "intentId": "cd6eb920-668b-4497-b681-528f2b347393",
+      "webhookUsed": "false",
+      "webhookForSlotFillingUsed": "false",
+      "intentName": "sinusitis"
+    },
+    "fulfillment": {
+      "speech": "You might have sinusitis",
+      "messages": [
+        {
+          "type": 0,
+          "speech": "You might have sinusitis"
+        }
+      ]
+    },
+    "score": 1.0
+  },
+  "alternateResult": {
+    "source": "domains",
+    "resolvedQuery": "face pain",
+    "actionIncomplete": false,
+    "metadata": {},
+    "fulfillment": {},
+    "score": 0.0
+  },
+  "status": {
+    "code": 200,
+    "errorType": "success"
+  },
+  "sessionId": "homeassistant"
+}
+You might have sinusitis
+Fatigue
+Swelling
+Headache
+Breath
+Pressure
+Taste
+Smell
+Blockage
+Congestion
+Earache
+
+https://gist.github.com/jjmontesl/4975bf82bf56296bfaf9168cb7bfead9
+
+(project_cb) paddy10tellys:~/workspace (master) $ pip3 install dpath
+Successfully installed dpath-1.4.0
+
+paddy10tellys:~/workspace (master) $ pip3 install nltk
+error: could not create '/usr/local/lib/python2.7/dist-packages/nltk': Permission denied
+
+paddy10tellys:~/workspace (master) $ pip3 list
+chardet (2.2.1)
+colorama (0.2.5)
+decorator (3.4.0)
+html5lib (0.999)
+ipython (1.2.1)
+matplotlib (1.3.1)
+nose (1.3.1)
+numpy (1.8.2)
+pbr (3.1.1)
+Pillow (2.3.0)
+pip (1.5.4)
+pycurl (7.19.3)
+pygobject (3.12.0)
+pyparsing (2.0.1)
+python-apt (0.9.3.5ubuntu2)
+python-dateutil (2.0)
+pytz (2012c)
+requests (2.2.1)
+scipy (0.13.3)
+setuptools (3.3)
+simplegeneric (0.8.1)
+six (1.10.0)
+stevedore (1.25.0)
+tornado (3.1.1)
+unattended-upgrades (0.1)
+urllib3 (1.7.1)
+virtualenv (15.1.0)
+virtualenv-clone (0.2.6)
+virtualenvwrapper (4.7.2)
+wheel (0.24.0)
+
+see https://stackoverflow.com/questions/12772658/installing-nltk-without-root-access/12773173
+
+paddy10tellys:~/workspace (master) $ pip install --user nltk
+Downloading/unpacking nltk
+  Downloading nltk-3.2.4.tar.gz (1.2MB): 1.2MB downloaded
+  Running setup.py (path:/tmp/pip_build_ubuntu/nltk/setup.py) egg_info for package nltk
+    
+    warning: no files found matching 'README.txt'
+    warning: no files found matching 'Makefile' under directory '*.txt'
+    warning: no previously-included files matching '*~' found anywhere in distribution
+Requirement already satisfied (use --upgrade to upgrade): six in /usr/lib/python2.7/dist-packages (from nltk)
+Installing collected packages: nltk
+  Running setup.py install for nltk
+    
+    warning: no files found matching 'README.txt'
+    warning: no files found matching 'Makefile' under directory '*.txt'
+    warning: no previously-included files matching '*~' found anywhere in distribution
+Successfully installed nltk
+Cleaning up...
+
+CHECK NLTK INSTALLED
+paddy10tellys:~/workspace (master) $ python hello_world.py
+The nltk version is 3.2.4.
+fuck hello world
+
+NB If you just use pip, then only the python2.7 version will be installed. You have to use pip3 for it to be installed on Python3.
+So, I twigged eventually...
+paddy10tellys:~/workspace (master) $ pip3 install --user nltk
+Successfully installed nltk
+
+paddy10tellys:~/workspace (master) $ pip3 install --user dpath
+Successfully installed dpath
+
+paddy10tellys:~/workspace (master) $ python3 f4bc.py
+{'response': {'common_symptoms': {'response': [], 'total': 0},
+              'symptoms': {'response': [{'description': 'Decreased or '
+                                                        'loss of sense '
+                                                        'of smell',
+                                         'label': ['Symptom'],
+                                         'name': 'Loss of smell',
+                                         'synonyms': []},
+                                        {'description': 'Decreased or '
+                                                        'loss of sense '
+                                                        'of taste',
+                                         'label': ['Symptom'],
+                                         'name': 'Loss of taste',
+                                         'synonyms': []},
+                                        {'description': 'Bad breath odor',
+                                         'label': ['Symptom'],
+                                         'name': 'Foul smelling breath',
+                                         'synonyms': []},
+                                        {'description': 'Swelling around '
+                                                        'one or both eyes',
+                                         'label': ['Symptom'],
+                                         'name': 'Swelling around eyes',
+                                         'synonyms': []},
+                                        {'description': 'Difficulty '
+                                                        'breathing '
+                                                        'through nose',
+                                         'label': ['Symptom'],
+                                         'name': 'Trouble breathing '
+                                                 'through nose',
+                                         'synonyms': []},
+                                        {'description': 'Feeling tired '
+                                                        'or lacking '
+                                                        'energy that may '
+                                                        'be relieved '
+                                                        'with periods of '
+                                                        'rest',
+                                         'label': ['Symptom'],
+                                         'name': 'Fatigue',
+                                         'synonyms': []},
+                                        {'description': 'Feeling '
+                                                        'pressure over '
+                                                        'forehead and '
+                                                        'face',
+                                         'label': ['Symptom'],
+                                         'name': 'Pressure over forehead',
+                                         'synonyms': []},
+                                        {'description': 'Discomfort or '
+                                                        'pain in one or '
+                                                        'both ears',
+                                         'label': ['Symptom'],
+                                         'name': 'Earache',
+                                         'synonyms': ['Ear pain']},
+                                        {'description': 'Pain or '
+                                                        'discomfort in '
+                                                        'the head, '
+                                                        'scalp, or neck',
+                                         'label': ['Symptom'],
+                                         'name': 'Headache',
+                                         'synonyms': []},
+                                        {'description': 'Congested nose '
+                                                        'which can cause '
+                                                        'trouble with '
+                                                        'breathing',
+                                         'label': ['Symptom'],
+                                         'name': 'Stuffy nose',
+                                         'synonyms': ['Nasal congestion']}],
+                           'total': 14}},
+ 'success': True,
+ 'total': 14}
++++++++ end of pretty print ++++++++++++++++
+Loss of smell
+******
+Loss of smell
+Loss of taste
+Foul smelling breath
+Swelling around eyes
+Trouble breathing through nose
+Fatigue
+Pressure over forehead
+Earache
+Headache
+Stuffy nose
+******
+Loss of smell
+paddy10tellys:~/workspace (master) $ 
+
+
+
+
+
+
+
+

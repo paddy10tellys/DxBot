@@ -1,0 +1,20 @@
+http://ctakes.apache.org/
+
+https://www.quora.com/Does-Apache-cTAKES-have-an-API-for-Python
+
+https://github.com/dirkweissenborn/ctakes-server
+
+http://cyborgdoctor.blogspot.co.uk/ 
+
+https://www.youtube.com/watch?v=TpGZIKEDYMw - overview of cTAKES + i2b2 + DeepPhe project + Partial TranSMART - 5.08mins
+
+OpenEMR cTAKES Research Project - Matthew Vita's computer Setup for his OpenEMR cTAKES Research Project (cTAKES) - 17.39mins
+
+https://www.youtube.com/watch?v=VCObOe94B0o - use cTAKES to extact lab results form unstructured clinical notes - 32 mins
+
+https://healthnlp.hms.harvard.edu/wiki/index.php?title=Main_Page - hNLP portal is an entry point to NLP projects related to health such as mining the clinical narrative
+of the electronic medical record, online community text, biomedical literature
+
+https://github.com/niderhoff/nlp-datasets/blob/master/README.md
+
+https://www.quora.com/What-is-a-good-English-language-corpus-to-use-for-an-NLP-project-relating-to-data-on-the-web

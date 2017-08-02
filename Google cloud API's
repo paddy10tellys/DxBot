@@ -1,0 +1,7 @@
+ Google Cloud Platform (GCP) offers five APIs that provide access to pre-trained machine learning models with a single API call:
+ Google Cloud Vision API, Cloud Speech API, Cloud Natural Language API, Cloud Translation API and Cloud Video API.
+ Using these APIs, you can focus on adding new features to your app rather than building and training your own custom models.
+ In this session we'll share an overview of each API and dive into code with some live demos.
+ https://www.youtube.com/watch?v=ETeeSYMGZn0
+ 
+ https://www.youtube.com/watch?v=chk2rRjSn5o - sentdex Google cloud tutorials

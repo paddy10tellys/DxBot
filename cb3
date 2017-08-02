@@ -1,0 +1,70 @@
+#!/usr/bin/env python3
+
+import sys
+import argparse
+import json
+import apiai
+
+def main():
+
+    parser = argparse.ArgumentParser(description='Client for API.AI.') # create parser object instance
+
+    # the add_argument() method specifies which command line options the program is willing to accept
+    parser.add_argument('text', nargs='*', help="text") # give the parser object some arguments
+    ''' the first positional argument 'text' is for the developer ACCESS_TOKEN
+    the second argument is used to specify what arguments are expected at the cli
+    number of arguments asterix nargs='*' means there must be at least one argument
+    number of arguments plus sign nargs='+' means none or any no of arguments
+    the third argument '''
+    parser.add_argument('-a', '--access-token', dest='access_token', action='store', type=str, default=None, help='access token')
+
+    args = parser.parse_args()  # read in the arguments
+
+    if len(args.text) == 0:  # if user does not provide access token
+        parser.print_usage() # print usage
+        sys.exit(1)  # exit
+
+    text = " ".join(args.text)  # concatenates just the text argument of
+    '''args with a new empty string & assigns it to a string called text'''
+    print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+    print(">%s" % text)  # prints out the text argument e.g., face pain
+    ai = apiai.ApiAI(args.access_token)
+
+    request = ai.text_request()
+    request.lang = 'es'  # default: 'en'
+    request.session_id = "homeassistant"
+    request.query = text
+
+    response = request.getresponse()
+    data = response.read().decode("utf-8")
+    print(data)
+
+    result = json.loads(data)
+
+    if result["status"]["code"] == 200:
+
+        for m in result["result"]["fulfillment"]["messages"]:
+            print(m['speech'])
+
+
+        for p in result["result"]["parameters"]:
+            print(p)
+
+
+if __name__ == '__main__':
+    main()
+
+
+# https://gist.github.com/jjmontesl/4975bf82bf56296bfaf9168cb7bfead9
+# usage: cb3 [-h] [-a ACCESS_TOKEN] [text [text ...]]
+
+
+'''
+The argparse module makes it easy to write user-friendly command-line interfaces.
+The program defines what arguments it requires, and argparse will figure out how
+to parse those out of sys.argv. The argparse module also automatically generates
+help and usage messages and issues errors when users give the program invalid arguments.
+
+sys.argv[1:] is the list of all the arguments after the name of the *.py file
+when you type at the bash prompt
+'''
